@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api/screens/video_screen.dart';
 
 class MyHero extends StatelessWidget {
   final String imgUrl;
@@ -64,7 +65,7 @@ class MyHero extends StatelessWidget {
                 Navigator.pushNamed(context, VideoApp.route);
               },
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
                   boxShadow: [
@@ -74,8 +75,8 @@ class MyHero extends StatelessWidget {
                         offset: Offset(0, 1)),
                   ],
                 ),
-                padding: EdgeInsets.all(15.0),
-                child: Icon(
+                padding: const EdgeInsets.all(15.0),
+                child: const Icon(
                   Icons.play_arrow,
                   color: Colors.red,
                 ),
@@ -90,11 +91,11 @@ class MyHero extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.share),
+                  icon: const Icon(Icons.share),
                   onPressed: () {},
                 ),
               ],

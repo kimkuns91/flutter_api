@@ -3,9 +3,11 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 class VideoApp extends StatefulWidget {
+  const VideoApp({super.key});
   static const route = "/videoapp";
+
   @override
-  _VideoAppState createState() => _VideoAppState();
+  State<VideoApp> createState() => _VideoAppState();
 }
 
 class _VideoAppState extends State<VideoApp> {
@@ -20,10 +22,9 @@ class _VideoAppState extends State<VideoApp> {
     ]);
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
-        'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+        'https://storage.cloud.google.com/white_mouse_dev/lectures/VID_20231008_235422_00_037.mp4',
       ),
     )..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
   }

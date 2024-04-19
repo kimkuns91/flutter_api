@@ -4,6 +4,7 @@ import 'package:flutter_api/colors.dart';
 import 'package:flutter_api/models/featured_movie_model.dart';
 import 'package:flutter_api/models/genre_model.dart';
 import 'package:flutter_api/widgets/featured_widget.dart';
+import 'package:flutter_api/widgets/movie_container.dart';
 import 'package:flutter_api/widgets/section_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -130,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }

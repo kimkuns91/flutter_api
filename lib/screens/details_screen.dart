@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api/global.dart';
 import 'package:flutter_api/models/movie_model.dart';
+import 'package:flutter_api/widgets/hero.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../api.dart';
 
@@ -35,20 +38,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Column(
                   children: <Widget>[
                     MyHero(
-                      imgUrl: getPosterImage(snapshot.data!.poster_path),
+                      imgUrl: getPosterImage(snapshot.data!.posterPath),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 11,
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "${snapshot.data!.original_title}",
+                            snapshot.data!.originalTitle,
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 7.0,
                           ),
                           RichText(
@@ -64,24 +67,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ),
-                          SizedBox(height: 9.0),
+                          const SizedBox(height: 9.0),
                           RatingBar.builder(
                             initialRating: snapshot.data!.rating,
                             // initialRating: 3,
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 10,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: Colors.amber,
                             ),
                             itemSize: 25,
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              debugPrint(rating.toString());
                             },
                           ),
-                          SizedBox(height: 13.0),
+                          const SizedBox(height: 13.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -93,7 +97,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                   Text(
-                                    "${DateTime.parse(snapshot.data!.release_date).year}",
+                                    "${DateTime.parse(snapshot.data!.releaseDate).year}",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -107,7 +111,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                   Text(
-                                    "${snapshot.data!.country}",
+                                    snapshot.data!.country,
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -121,7 +125,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                   Text(
-                                    "${snapshot.data!.run_time} min",
+                                    "${snapshot.data!.runTime} min",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -129,26 +133,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 13.0),
+                          const SizedBox(height: 13.0),
                           Text(
-                            "${snapshot.data!.overview}",
+                            snapshot.data!.overview,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
                                 ?.apply(fontSizeFactor: 1.2),
                           ),
-                          SizedBox(height: 13.0),
+                          const SizedBox(height: 13.0),
                         ],
                       ),
                     ),
                     // MyScreenshots(),
-                    SizedBox(height: 13.0),
+                    const SizedBox(height: 13.0),
                   ],
                 ),
               );
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
