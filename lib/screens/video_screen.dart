@@ -12,21 +12,33 @@ class VideoApp extends StatefulWidget {
 
 class _VideoAppState extends State<VideoApp> {
   late VideoPlayerController _controller;
+  bool _isLoading = true; // 로딩 상태를 추적하는 플래그
 
   @override
   void initState() {
     super.initState();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
         'https://storage.cloud.google.com/white_mouse_dev/lectures/VID_20231008_235422_00_037.mp4',
       ),
-    )..initialize().then((_) {
-        setState(() {});
+    );
+
+    _controller.initialize().then((_) {
+      setState(() {
+        _isLoading = false; // Set to false when the video is ready
       });
+    }).catchError((error) {
+      setState(() {
+        _isLoading =
+            false; // Also set to false on error, possibly set an error message
+      });
+    });
   }
 
   @override
@@ -38,21 +50,27 @@ class _VideoAppState extends State<VideoApp> {
         body: Stack(
           children: <Widget>[
             Positioned.fill(
-              child: _controller.value.isInitialized
-                  ? AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    )
-                  : Container(),
+              child: _isLoading
+                  ? const Center(
+                      child:
+                          CircularProgressIndicator()) // Display while loading
+                  : _controller.value.isInitialized
+                      ? AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        )
+                      : Container(), // Show empty container if not initialized
             ),
             Align(
               alignment: Alignment.center,
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
+                    if (_controller.value.isPlaying) {
+                      _controller.pause();
+                    } else {
+                      _controller.play();
+                    }
                   });
                 },
                 icon: Icon(
@@ -72,7 +90,7 @@ class _VideoAppState extends State<VideoApp> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 }
